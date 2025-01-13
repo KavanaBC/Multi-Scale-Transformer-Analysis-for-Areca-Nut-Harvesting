@@ -1,2 +1,3 @@
-# Multi-Scale-Transformer-Analysis-for-Areca-Nut-Harvesting
-This project automates ArecaNut classification and harvesting using transformer models like MViT and Swin Transformer. It classifies ArecaNuts into five categories: ripened, unripened, semi-ripened, over-ripened, and diseased. The system is designed for integration with robotic harvesting for real-time operation.
+version https://git-lfs.github.com/spec/v1
+oid sha256:2a6214051172cb277974ea107bdb69f48916ff560d72d0a0f6e2160815bf3c59
+size 377
