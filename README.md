@@ -34,8 +34,6 @@ The main goal of this project is to classify Areca nut images into 5 categories:
 
 Diseased, to be harvested
 
-Overripen, to be harvested
-
 Ripen, to be harvested
 
 Semi-ripen, not to be harvested
@@ -49,8 +47,6 @@ Dataset
 The dataset used in this project is stored in the ./dataset/processed directory. The dataset is organized into subfolders, each representing a class label with images of Areca nuts belonging to that category. Each image is labeled with one of the following classes:
 
 Diseased, to be harvested
-
-Overripen, to be harvested
 
 Ripen, to be harvested
 
@@ -171,9 +167,9 @@ Results
 The models are evaluated based on their accuracy on the test set. The final test accuracy for both models is reported after training.
 
 
-MultiVision Transformer: Achieved an accuracy of 85.49%.
+MultiVision Transformer: Achieved an accuracy of 83.49%.
 
-Swin Transformer: Achieved an accuracy of 93.66%.
+Swin Transformer: Achieved an accuracy of 97.55%
 
 The models' performance is saved, and the best model is used for making predictions.
 
