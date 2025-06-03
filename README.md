@@ -1,191 +1,161 @@
-Multi-Scale Transformer Analysis for Areca-Nut Harvestig
+# Multi-Scale Transformer Analysis for Areca-Nut Harvestig
 
 This project focuses on building an image classification model for Areca nut harvesting using deep learning. The goal is to classify images of Areca nuts into different categories based on their ripeness level. We use deep learning models such as MultiVision Transformer and Swin Transformer to predict whether the nuts are ripe, overripe, or diseased.
 
-Table of Contents
+---
 
+## Table of Contents
 
-Project Overview
+- **Project Overview**
+- **Dataset**
+- **Setup and Installation**
+- **Models (MultiVision Transformer (MViT), Swin Transformer**
+- **Training**
+- **Prediction with Streamlit**
+- **Results**
+- **Future Work**
+- **License**
 
-Dataset
+---
 
-Setup and Installation
-
-Models
-
-MultiVision Transformer (MViT)
-
-Swin Transformer
-
-Training
-
-Prediction with Streamlit
-
-Results
-
-Future Work
-
-License
-
-
-Project Overview
+## Project Overview
 
 The main goal of this project is to classify Areca nut images into 5 categories:
 
-Diseased, to be harvested
-
-Ripen, to be harvested
-
-Semi-ripen, not to be harvested
-
-Unripen, not to be harvested
+- **Diseased, to be harvested**
+- **Ripen, to be harvested**
+- **Semi-ripen, not to be harvested**
+- **Unripen, not to be harvested**
 
 We train deep learning models to predict these categories from images, and then deploy the trained models using Streamlit for web-based predictions.
 
+---
 
-Dataset
+## Dataset
+
 The dataset used in this project is stored in the ./dataset/processed directory. The dataset is organized into subfolders, each representing a class label with images of Areca nuts belonging to that category. Each image is labeled with one of the following classes:
 
-Diseased, to be harvested
-
-Ripen, to be harvested
-
-Semi-ripen, not to be harvested
-
-Unripen, not to be harvested
+- **Diseased, to be harvested**
+- **Ripen, to be harvested**
+- **Semi-ripen, not to be harvested**
+- **Unripen, not to be harvested**
 
 The images are resized to 224x224 pixels and are transformed into tensor format using PyTorch's transforms.
 
+---
 
-Setup and Installation
+## Setup and Installation
+
 To get started, clone this repository and install the necessary dependencies:
 
-Clone the repository:
-
-Copy code
-
-git clone https://github.com/your-username/areca-nut-harvesting-classification.git
-
-cd areca-nut-harvesting-classification
-
-Install dependencies:
-Copy code
-
+### Clone the repository:
+```bash
+git clone https://github.com/KavanaBC/Multi-Scale-Transformer-Analysis-for-Areca-Nut-Harvesting.git
+```
+### Install dependencies:
+```bash
 pip install -r requirements.txt
+```
+#### The dependencies include:
+- **torch (PyTorch) - A deep learning framework for building and training neural networks efficiently.**
+- **torchvision - A PyTorch library with image datasets, transforms, and pre-trained models for computer vision tasks.**
+- **timm - A PyTorch image model library offering state-of-the-art vision transformer architectures and utilities.**
+- **optuna - An automatic hyperparameter optimization framework for improving model performance.**
+- **streamlit - A tool to build interactive web apps for machine learning and data science projects with minimal code.**
+- **PIL (Pillow) - A Python Imaging Library used for opening, processing, and saving image files.**
+- **numpy - A fundamental package for numerical computing with support for arrays and matrices.**
+- **matplotlib - A plotting library used for visualizing data and model outputs through graphs and charts.**
 
-The dependencies include:
+### Run the command to predict
+```bash
+streamlit run .\run2.py
+```
+---
 
-
-torch (PyTorch)
-
-torchvision
-
-timm
-
-optuna
-
-streamlit
-
-PIL (Pillow)
-
-numpy
-
-matplotlib
-
-Models
+## Models
 
 This project uses two deep learning models: MultiVision Transformer (MVT) and Swin Transformer. Both are trained to classify the Areca nut images.
 
-
-MultiVision Transformer (MViT)
+### MultiVision Transformer (MViT)
 
 The MultiVision Transformer (MViT) is a custom model built using a transformer architecture. It consists of the following components:
+``` bash
+1) Patch Embedding Layer: Divides the image into patches and embeds them.
+2) Transformer Blocks: The core of the model, with multi-head self-attention and feed-forward layers.
+3) Classification Head: A fully connected layer to output the class predictions.
+```
 
-
-Patch Embedding Layer: Divides the image into patches and embeds them.
-
-Transformer Blocks: The core of the model, with multi-head self-attention and feed-forward layers.
-
-Classification Head: A fully connected layer to output the class predictions.
-
-
-Swin Transformer
+### Swin Transformer
 The Swin Transformer is a pre-trained model from the timm library, fine-tuned for the Areca nut classification task. It works by:
+```bash
+-> Using a pretrained Swin Transformer as the backbone.
+-> Modifying the head for classification by adding a fully connected layer to predict the class.
+```
+---
 
-
-Using a pretrained Swin Transformer as the backbone.
-Modifying the head for classification by adding a fully connected layer to predict the class.
-Training
+## Training
 To train the models, we use Optuna for hyperparameter optimization and PyTorch for model training. The training pipeline involves the following steps:
 
+- **Loading and splitting the dataset: The dataset is split into training (80%) and testing (20%) sets.**
+- **Data Augmentation: To handle class imbalance, we use WeightedRandomSampler to ensure balanced sampling during training.**
+- **Model Training: The model is trained for 10 epochs, with the following hyperparameters optimized using Optuna:
+embed_dim, num_heads, depth, feedforward_dim, dropout, learning_rate, momentum.**
+- **After training, the model is saved as a .pth file.**
 
-Loading and splitting the dataset: The dataset is split into training (80%) and testing (20%) sets.
-
-Data Augmentation: To handle class imbalance, we use WeightedRandomSampler to ensure balanced sampling during training.
-
-Model Training: The model is trained for 10 epochs, with the following hyperparameters optimized using Optuna:
-embed_dim, num_heads, depth, feedforward_dim, dropout, learning_rate, momentum
-After training, the model is saved as a .pth file.
-
-
-Hyperparameter Optimization
+### Hyperparameter Optimization
 The model's hyperparameters are optimized using Optuna. The search space includes:
-
-
-Embed Dimension: 64, 128, 256
-
-Number of Attention Heads: 2, 4, 8
-
-Depth of the Transformer: 4-8 layers
-
-Feedforward Dimension: 128, 256, 512
-
-Dropout: 0.1-0.3
-
-Learning Rate: 1e-4 to 1e-2
-
+```bash
+Embed Dimension: 64, 128, 256 ->
+Number of Attention Heads: 2, 4, 8 ->
+Depth of the Transformer: 4-8 layers ->
+Feedforward Dimension: 128, 256, 512 ->
+Dropout: 0.1-0.3 ->
+Learning Rate: 1e-4 to 1e-2 ->
 Momentum: 0.8 to 0.99
-
+```
 After training, the best hyperparameters are selected for final model evaluation.
 
+---
 
-Prediction with Streamlit
+## Prediction with Streamlit
 
 The trained models are deployed using Streamlit, which provides an interactive interface to upload an image and receive predictions. The app is set up to accept image uploads and display the predicted class (e.g., "Ripen, to be harvested").
 
-Running the Streamlit App
+### Running the Streamlit App
 
 Make sure the model files (mvt.pth and swin_transformer_model.pth) are in the ./output/ folder.
 Run the following command to start the Streamlit app:
 
-streamlit run app.py
-
+```bash
+streamlit run .\run2.py
+```
 This will open a web interface where you can upload an image and get predictions.
 
-Results
+---
+
+## Results
 
 The models are evaluated based on their accuracy on the test set. The final test accuracy for both models is reported after training.
 
-
-MultiVision Transformer: Achieved an accuracy of 83.49%.
-
-Swin Transformer: Achieved an accuracy of 97.55%
+- **MultiVision Transformer: Achieved an accuracy of 83.49%.
+- **Swin Transformer: Achieved an accuracy of 97.55%
 
 The models' performance is saved, and the best model is used for making predictions.
 
+---
 
-Future Work
+## Future Work
 
-Future improvements can include:
+### Future improvements can include:
 
-Adding more data for training to improve model generalization.
-Experimenting with other deep learning architectures like CNN-based models or hybrid models.
-Fine-tuning the models further for better performance.
-Deploying the models to a cloud service for production use.
+- **Adding more data for training to improve model generalization.**
+- **Experimenting with other deep learning architectures like CNN-based models or hybrid models.**
+- **Fine-tuning the models further for better performance.**
+- **Deploying the models to a cloud service for production use.**
 
+---
 
-License
+### License
 This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
 
-
-This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
+---
